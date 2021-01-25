@@ -1,0 +1,6 @@
+<map id="efd::CreateIntrinsicGate" name="efd::CreateIntrinsicGate">
+<area shape="rect" id="node2" href="$d4/deb/namespaceefd.xhtml#a3c72243a170ffe8a4836e7092fd1469f" title="Creates a call to the intrinsic long cnot function. " alt="" coords="231,5,377,32"/>
+<area shape="rect" id="node3" href="$d4/deb/namespaceefd.xhtml#af8e947f977669e54d6aaf3a43815833c" title="Creates a call to the intrinsic reversal cnot function. " alt="" coords="233,56,375,83"/>
+<area shape="rect" id="node4" href="$d4/deb/namespaceefd.xhtml#ad83c1dbaa41519964485ea8e2437bcb7" title="Creates a call to the intrinsic swap function. " alt="" coords="237,107,371,133"/>
+<area shape="rect" id="node5" href="$d4/deb/namespaceefd.xhtml#af3487901a239a99750dc5dcdc3a8c868" title="efd::ExitWith" alt="" coords="251,157,357,184"/>
+</map>

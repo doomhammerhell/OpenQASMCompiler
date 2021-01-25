@@ -1,0 +1,6 @@
+<map id="efd::UsedBitsVisitor::visitQOp" name="efd::UsedBitsVisitor::visitQOp">
+<area shape="rect" id="node2" href="$dd/d94/classefd_1_1NDQOp.xhtml#af7ef43289355c5bb047a46419177c8ed" title="Gets the quantum arguments. " alt="" coords="204,5,371,32"/>
+<area shape="rect" id="node3" href="$db/d0c/structefd_1_1XbitToNumber.xhtml#ae645e4b0ccb9c25c534883843484f06a" title="Returns an uint32_t number representing the qubit in this specific gate (if any). ..." alt="" coords="211,57,364,98"/>
+<area shape="rect" id="node4" href="$d0/d9e/classefd_1_1NDDecl.xhtml#a34957c2122c38cebf80a264d5fa3863f" title="Gets the id node. " alt="" coords="427,39,569,65"/>
+<area shape="rect" id="node5" href="$df/d1b/classefd_1_1NDValue.xhtml#a53ee724a8db3429bf30bb1936ad548b2" title="Returns a copy to the setted value. " alt="" coords="419,89,577,116"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="efd::QModule::GetFromAST" name="efd::QModule::GetFromAST">
+<area shape="rect" id="node2" href="$d4/deb/namespaceefd.xhtml#a194305909125a1398a1f0e00fbae1cf5" title="Returns a vector with the intrinsic gates implementation. " alt="" coords="251,5,415,32"/>
+<area shape="rect" id="node3" href="$d4/deb/namespaceefd.xhtml#a5b8442e2de32a9529d7a4fcd5829ef62" title="Processes the root node, and transform the entire AST into a QModule. " alt="" coords="269,56,396,83"/>
+<area shape="rect" id="node4" href="$d6/d6a/classefd_1_1Node.xhtml#ab813c60af1717cf50e92a28b274c24ef" title="Used by visitor classes. " alt="" coords="463,56,592,83"/>
+</map>

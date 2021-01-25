@@ -1,0 +1,6 @@
+<map id="main" name="main">
+<area shape="rect" id="node2" href="$d4/deb/namespaceefd.xhtml#a033a77baa1aa02f207c7a918246aeb59" title="Registers all available architectures in the register. " alt="" coords="111,5,321,32"/>
+<area shape="rect" id="node3" href="$d4/deb/namespaceefd.xhtml#ae4b41f17586b3bdf847d049e8994977c" title="efd::InitializeAllQbitAllocators" alt="" coords="108,56,324,83"/>
+<area shape="rect" id="node4" href="$d4/deb/namespaceefd.xhtml#a6bbed132b341f48d4aad4f970e3822bc" title="Parses the command line arguments (this function should be used in the main function). " alt="" coords="137,107,295,133"/>
+<area shape="rect" id="node5" href="$d4/deb/namespaceefd.xhtml#ab4181eb2261a81187a3e8800ec2782ed" title="Parse filename at path. " alt="" coords="161,157,271,184"/>
+</map>

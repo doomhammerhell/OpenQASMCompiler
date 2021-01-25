@@ -1,0 +1,23 @@
+<map id="efd::QModule::inlineCall" name="efd::QModule::inlineCall">
+<area shape="rect" id="node2" href="$d4/deb/namespaceefd.xhtml#af3487901a239a99750dc5dcdc3a8c868" title="efd::ExitWith" alt="" coords="745,383,852,410"/>
+<area shape="rect" id="node3" href="$d6/d6a/classefd_1_1Node.xhtml#ae80bbf9487f0e43317c29c63a414ff34" title="Returns a iterator pointing to the given child. " alt="" coords="239,307,390,334"/>
+<area shape="rect" id="node4" href="$d6/d6a/classefd_1_1Node.xhtml#a7df493996977432aee05df57ae6dc375" title="Returns the parent node of the current node. " alt="" coords="485,54,641,81"/>
+<area shape="rect" id="node5" href="$d4/deb/namespaceefd.xhtml#acd4cde60c75b526798dab375aa82125c" title="If found, inlines the gate that qop calls. " alt="" coords="255,409,374,435"/>
+<area shape="rect" id="node20" href="$dd/d94/classefd_1_1NDQOp.xhtml#a8700a0eb5ff3cee0e3b52c56f3cc2b3c" title="Returns true if this is a generic node. " alt="" coords="231,459,399,486"/>
+<area shape="rect" id="node21" href="$dd/d94/classefd_1_1NDQOp.xhtml#ad05708f36f7c1c126e9f0fbba80a4b0f" title="Returns a std::string representation of this Node and its childrem. " alt="" coords="235,865,394,891"/>
+<area shape="rect" id="node6" href="$d6/d6a/classefd_1_1Node.xhtml#ab813c60af1717cf50e92a28b274c24ef" title="Used by visitor classes. " alt="" coords="498,155,627,182"/>
+<area shape="rect" id="node7" href="$d6/d6a/classefd_1_1Node.xhtml#a6c85c9bd21014b73497de741cc75f706" title="Clones the current node (deep copy). " alt="" coords="499,206,627,233"/>
+<area shape="rect" id="node8" href="$db/d1f/classefd_1_1NDGateSign.xhtml#a0be5984f118128bc3e2bf64a8a390071" title="Gets the args node. " alt="" coords="469,257,657,283"/>
+<area shape="rect" id="node9" href="$dd/d94/classefd_1_1NDQOp.xhtml#a38dbbb3a5ca8faaeb9973512f04c6f64" title="Gets the arguments. " alt="" coords="484,307,641,334"/>
+<area shape="rect" id="node10" href="$d6/d6a/classefd_1_1Node.xhtml#a63e30243eca03b0c85d8c4856e91c79d" title="Gets the i&#45;th child. " alt="" coords="489,358,636,385"/>
+<area shape="rect" id="node11" href="$d6/d6a/classefd_1_1Node.xhtml#a11df06f4d8e590426340024cbb2db23e" title="Returns the number of childrem of this node. " alt="" coords="463,409,662,435"/>
+<area shape="rect" id="node12" href="$d1/d4b/classefd_1_1NDGateDecl.xhtml#aa45195dbaf1b921fcece3cac5caaceac" title="Gets the goplist node. " alt="" coords="457,459,668,486"/>
+<area shape="rect" id="node13" href="$dd/d94/classefd_1_1NDQOp.xhtml#aa9d90f493865fe9cdc3fecd468eaa33b" title="Gets the id. " alt="" coords="493,510,633,537"/>
+<area shape="rect" id="node14" href="$db/d1f/classefd_1_1NDGateSign.xhtml#a081605b4c294930734e9d93b34ef85d0" title="Gets the qargs node. " alt="" coords="463,561,662,587"/>
+<area shape="rect" id="node15" href="$dd/d94/classefd_1_1NDQOp.xhtml#af7ef43289355c5bb047a46419177c8ed" title="Gets the quantum arguments. " alt="" coords="479,611,646,638"/>
+<area shape="rect" id="node16" href="$dd/d52/classefd_1_1QModule.xhtml#a2cbccf2cf8dd0e4e2dc30bf12e146644" title="Gets the quantum gate mapped to id. " alt="" coords="473,662,652,689"/>
+<area shape="rect" id="node17" href="$df/d1b/classefd_1_1NDValue.xhtml#a53ee724a8db3429bf30bb1936ad548b2" title="Returns a copy to the setted value. " alt="" coords="483,713,642,739"/>
+<area shape="rect" id="node18" href="$dd/d52/classefd_1_1QModule.xhtml#abaf0b3dd099e4b098b89772b6a134d07" title="Replaces the stmt by the vector stmts. " alt="" coords="447,763,679,790"/>
+<area shape="rect" id="node19" href="$d6/d6a/classefd_1_1Node.xhtml#a96ca13a5c2b971b68619ce4a34be0f66" title="Returns a std::string representation of this Node and its childrem. " alt="" coords="727,814,871,841"/>
+<area shape="rect" id="node22" href="$d6/d6a/classefd_1_1Node.xhtml#a3f8e26eafae005e4befadedeab9b6df4" title="Returns whether this node has any information. " alt="" coords="489,915,636,942"/>
+</map>

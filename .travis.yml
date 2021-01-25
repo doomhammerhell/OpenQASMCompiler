@@ -1,0 +1,64 @@
+language: cpp
+
+os: linux
+sudo: false
+
+addons:
+    apt:
+        sources:
+            - george-edison55-precise-backports
+        packages:
+            - bison
+            - flex
+            - cmake
+
+matrix:
+    include:
+        - addons:
+              apt:
+                  sources:
+                      - ubuntu-toolchain-r-test
+                  packages:
+                      - g++-5
+          env: SET_COMPILERS="CC=gcc-5 CXX=g++-5"
+
+        - addons:
+              apt:
+                  sources:
+                      - llvm-toolchain-trusty-4.0
+                      - ubuntu-toolchain-r-test
+                  packages:
+                      - clang-3.9
+                      - libstdc++-5-dev
+          env: SET_COMPILERS="CC=clang CXX=clang++"
+
+env:
+    global:
+        - GTEST_GIT=https://github.com/google/googletest
+        - GTEST_GIT_BRANCH=release-1.8.0
+        - GTEST_HOME=$HOME/googletest
+        - JSONCPP_GIT=https://github.com/open-source-parsers/jsoncpp
+        - JSONCPP_GIT_BRANCH=1.8.4
+        - JSONCPP_HOME=$HOME/jsoncpp
+        - EFD_HOME=$TRAVIS_BUILD_DIR
+        - EFD_BUILD_HOME=$EFD_HOME/build
+        - EFD_EXE=$EFD_BUILD_HOME/tools/efd
+
+before_install:
+    - eval $SET_COMPILERS
+    - git clone $GTEST_GIT $GTEST_HOME
+    - git clone $JSONCPP_GIT $JSONCPP_HOME
+
+install:
+    - mkdir -p $GTEST_HOME/build && cd $GTEST_HOME/build
+    - git checkout -b $GTEST_GIT_BRANCH $GTEST_GIT_BRANCH
+    - cmake -DCMAKE_INSTALL_PREFIX=$GTEST_HOME/install ../ && make -j4 && make install
+    - mkdir -p $JSONCPP_HOME/build && cd $JSONCPP_HOME/build
+    - git checkout -b $JSONCPP_GIT_BRANCH $JSONCPP_GIT_BRANCH
+    - cmake -DCMAKE_INSTALL_PREFIX=$JSONCPP_HOME/install ../ && make -j4 && make install
+    - mkdir -p $EFD_BUILD_HOME && cd $EFD_BUILD_HOME
+    - cmake -DGTEST_ROOT=$GTEST_HOME/install -DJSONCPP_ROOT=$JSONCPP_HOME/install -DENABLE_TESTS=ON ../ && make -j4
+
+script:
+    - $EFD_HOME/ci/RunUnitTests.sh
+    - $EFD_HOME/ci/RunFunctionalTests.sh

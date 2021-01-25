@@ -1,0 +1,6 @@
+<map id="efd::QModulefyVisitor::visit" name="efd::QModulefyVisitor::visit">
+<area shape="rect" id="node2" href="$d6/d6a/classefd_1_1Node.xhtml#a6c85c9bd21014b73497de741cc75f706" title="Clones the current node (deep copy). " alt="" coords="255,5,383,32"/>
+<area shape="rect" id="node3" href="$da/d7f/classefd_1_1NDStmtList.xhtml#a015cefabf53b2666c442b01b86c2b7cd" title="Creates a new instance of this node. " alt="" coords="231,56,407,83"/>
+<area shape="rect" id="node4" href="$d3/d29/classefd_1_1NDInclude.xhtml#a81d54827a61c546040dad4f57e34c318" title="Creates a new instance of this node. " alt="" coords="235,107,404,133"/>
+<area shape="rect" id="node5" href="$d3/d29/classefd_1_1NDInclude.xhtml#a08ec207974cdeaf086c7978dc23b9a30" title="Gets the node that holds the filename. " alt="" coords="216,157,423,184"/>
+</map>
