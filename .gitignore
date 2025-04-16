@@ -1,5 +1,35 @@
-*.o
-*.swp
-.ycm_extra_conf.py
+# Build directory
 build/
-bench/
+CMakeFiles/
+CMakeCache.txt
+
+# IDE files
+.history/
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Compiled files
+*.o
+*.so
+*.a
+*.exe
+qasm_compiler
+
+# Flex and Bison generated files
+lexer.cpp
+parser.cpp
+parser.hpp
+location.hh
+position.hh
+stack.hh
+
+# Test files
+*.gcno
+*.gcda
+*.gcov
+
+# OS specific
+.DS_Store
+Thumbs.db

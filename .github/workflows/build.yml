@@ -1,0 +1,117 @@
+name: C++ CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        build-type: [Debug, Release]
+        include:
+          - os: ubuntu-latest
+            cc: gcc
+            cxx: g++
+          - os: windows-latest
+            cc: cl
+            cxx: cl
+          - os: macos-latest
+            cc: clang
+            cxx: clang++
+    
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Install Dependencies
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake libgtest-dev libeigen3-dev lcov clang-tidy doxygen graphviz
+    
+    - name: Install Dependencies
+      if: matrix.os == 'macos-latest'
+      run: |
+        brew update
+        brew install cmake gtest eigen lcov llvm doxygen graphviz
+    
+    - name: Install Dependencies
+      if: matrix.os == 'windows-latest'
+      run: |
+        choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+        choco install doxygen.install graphviz
+    
+    - name: Configure CMake
+      run: |
+        mkdir -p build/${{ matrix.build-type }}
+        cd build/${{ matrix.build-type }}
+        cmake -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} \
+              -DCMAKE_C_COMPILER=${{ matrix.cc }} \
+              -DCMAKE_CXX_COMPILER=${{ matrix.cxx }} \
+              -DENABLE_COVERAGE=${{ matrix.build-type == 'Debug' && matrix.os != 'windows-latest' }} \
+              -DENABLE_CLANG_TIDY=${{ matrix.os == 'ubuntu-latest' }} \
+              -DENABLE_DOXYGEN=ON \
+              ../..
+    
+    - name: Build
+      run: |
+        cd build/${{ matrix.build-type }}
+        cmake --build . --config ${{ matrix.build-type }} --parallel
+    
+    - name: Run Tests
+      run: |
+        cd build/${{ matrix.build-type }}
+        ctest --output-on-failure --parallel $(nproc)
+    
+    - name: Run Valgrind
+      if: matrix.build-type == 'Debug' && matrix.os == 'ubuntu-latest'
+      run: |
+        cd build/${{ matrix.build-type }}
+        ctest -T memcheck
+    
+    - name: Generate Coverage Report
+      if: matrix.build-type == 'Debug' && matrix.os != 'windows-latest'
+      run: |
+        cd build/${{ matrix.build-type }}
+        lcov --capture --directory . --output-file coverage.info
+        lcov --remove coverage.info '/usr/*' --output-file coverage.info
+        lcov --list coverage.info
+    
+    - name: Upload Coverage Report
+      if: matrix.build-type == 'Debug' && matrix.os != 'windows-latest'
+      uses: codecov/codecov-action@v3
+      with:
+        file: build/${{ matrix.build-type }}/coverage.info
+        fail_ci_if_error: true
+    
+    - name: Generate Documentation
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        cd build/${{ matrix.build-type }}
+        cmake --build . --target docs
+    
+    - name: Upload Documentation
+      if: matrix.os == 'ubuntu-latest' && success()
+      uses: actions/upload-artifact@v3
+      with:
+        name: documentation
+        path: build/${{ matrix.build-type }}/docs/html/**
+    
+    - name: Upload Test Results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results-${{ matrix.os }}-${{ matrix.build-type }}
+        path: build/${{ matrix.build-type }}/Testing/**/*.xml
+    
+    - name: Upload Build Artifacts
+      if: success()
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-artifacts-${{ matrix.os }}-${{ matrix.build-type }}
+        path: build/${{ matrix.build-type }}/bin/** 

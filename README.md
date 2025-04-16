@@ -1,113 +1,189 @@
-# OpenQASMCompiler
+# OpenQASM Compiler
 
-<!-- [![Build Status](https://travis-ci.org/doomhammerhell/OpenQASMCompiler.svg?branch=master)](https://travis-ci.org/doomhammerhell/OpenQASMCompiler) -->
+A modern C++ compiler for OpenQASM (Quantum Assembly Language) with support for quantum circuit optimization and simulation.
 
-This project was built on top of [Bison](https://www.gnu.org/software/bison/) (v3.0.2),
-[Flex](https://github.com/westes/flex) (2.5.39),
-and [JsonCpp](https://github.com/open-source-parsers/jsoncpp) (v1.8.4).
+## Introduction
 
-<!-- Check out the [documentation here!!](https://doomhammerhel.github.io/OpenQASMCompiler/) -->
+The OpenQASM Compiler is a powerful tool for compiling and optimizing quantum circuits written in OpenQASM 2.0. It provides a complete toolchain from parsing OpenQASM code to generating optimized quantum circuits, with support for simulation and visualization.
+
+Key features include:
+- Full OpenQASM 2.0 language support
+- Quantum circuit optimization
+- Circuit simulation capabilities
+- Cross-platform compatibility
+- Comprehensive testing and documentation
+- Modern C++ implementation
 
 ## Building
 
-OpenQASMCompiler uses CMake. So, in order to build this project, issue the following commands:
+### Prerequisites
 
-```
-$ mkdir build && cd build
-$ cmake ../ -DJSONCPP_ROOT=<path-to-jsoncpp-libs>
-$ make
-```
+- CMake 3.10 or higher
+- C++17 compatible compiler
+- Eigen3
+- CLI11
+- (Optional) Doxygen and Graphviz for documentation
+- (Optional) clang-tidy for static analysis
+- (Optional) lcov for coverage reporting
 
-The script for finding JsonCpp is simple, so you will have to explicitly show OpenQASMCompiler
-where you installed it (the prefix folder).
+### Build Options
 
-## Testing
+The project supports several build options that can be enabled during configuration:
 
-OpenQASMCompiler uses the [Google test framework](https://github.com/google/googletest)
-to test its components.
-To enable automated tests, you should issue the ```cmake``` command as follows:
+```bash
+# Enable code coverage reporting
+cmake -DENABLE_COVERAGE=ON ..
 
-```
-$ cmake ../ -DENABLE_TESTS=on
-$ make && make test
-```
+# Enable clang-tidy static analysis
+cmake -DENABLE_CLANG_TIDY=ON ..
 
-It is possible to specify the root folder of the GTest framework. In order to do that,
-you should pass to ```cmake``` the option ```-DGTEST_ROOT=<path-to-gtest-libs>```.
+# Enable Doxygen documentation generation
+cmake -DENABLE_DOXYGEN=ON ..
 
-## Compiling OpenQASM Programs
-
-Suppose that you compiled OpenQASMCompiler inside ```$BUILD_DIR``` folder.
-The OpenQASM compiler will be located at ```$BUILD_DIR/tools```.
-There you will find some programs, one of which is ```efd```, the compiler itself.
-
-The only required argument for compiling an OpenQASM program is the program itself.
-If you do not specify anything, OpenQASMCompiler will compile the input program with the
-default parameters.
-One can check the available parameter, as well as the default ones by executing the
-following command:
-
-```
-$ efd --help
+# Build documentation
+cmake --build . --target docs
 ```
 
-The general form for compiling programs is:
+### Build Steps
 
-```
-$ efd -i <qasm-file> --alloc <allocator> --arch <architecture> -o <output-file>
-```
+```bash
+# Clone the repository
+git clone https://github.com/doomhammerhell/OpenQASMCompiler.git
+cd OpenQASMCompiler
 
-For example: if we wanted to compile program ```tests/files/qft.qasm``` for architecture
-```ibmqx2```, using allocator ```wpm```, while storing the compiled program inside
-```qft_ibmqx2.qasm```, we would have to execute the following:
+# Create build directory
+mkdir build
+cd build
 
-```
-$ efd -i tests/files/qft.qasm --alloc Q_wpm --arch A_ibmqx2 -o qft_ibmqx2.qasm
-```
+# Configure with CMake
+cmake ..
 
-One could add the ```-stats``` flag, in order for OpenQASMCompiler to print statistical data
-of the compilation, such as the weighted cost, depth, and number of gates of the
-compiled program.
+# Build the project
+cmake --build .
 
-It is also possible to feed the compiler a new architecture, and use it to compile
-the same program.
-So, for example, if we wanted to compile using architecture ```archfiles/tokyo.json```,
-we would have to execute the following:
-
-```
-$ efd -i tests/files/qft.qasm --alloc Q_wpm --arch-file archfiles/tokyo.json -o qft_tokyo.qasm
+# Run tests
+ctest
 ```
 
-## Hacking
+## Usage
 
-Even though this project is pretty new, it was designed to be extensible. So, here are
-a few tips in order to implement your own algorithm to your desired architecture.
-Below, I'll list some classes that are important to be aware of.
+### Basic Usage
 
-(Note that this is a (really brief) 'begginers guide', so you can do more stuff once
-you learn the code)
+```bash
+# Compile an OpenQASM file
+./qasmc input.qasm -o output.qasm
 
-* ```efd::QModule```: The core class of OpenQASMCompiler. It holds the AST preprocessed to be
-easier to use, as well as some other useful methods for modifying the AST.
-i.e.: ```insertSwapAfter```; ```insertNodeAfter```; ```replaceAllRegsWith```, etc.
+# Enable optimization
+./qasmc input.qasm -o output.qasm --optimize
 
-* ```efd::Pass```: OpenQASMCompiler is a pass-based compiler.
-Much like LLVM (but far from its user base), the transformations are implemented as
-```Pass``` for ```QModules```.
-There are plenty (ugly, though) so that you can implement yours!
-Good luck;
+# Generate visualization
+./qasmc input.qasm -o output.qasm --visualize
+```
 
-* ```efd::QbitAllocator```: This is the base class for implementing allocators.
-In order to implement your own, you should extend this class and implement the method
-```allocate```.
-This method is responsible for inserting swaps based on the ```QModule``` (that is
-given by parameter).
-After that, you have to surrender to the "beauty" of C++ macros, and modify the file
-```Allocators.def```, so that your allocator is available on command line;
+### Example OpenQASM Code
 
-* ```Architectures.def```: Take a look in this file in order to create the specification
-of other architectures.
-YES!
-More Macros!
-You will have to specify your architecture in a JSON format.
-Check the other architecture descriptions for a better understanding.
+Here's a simple example of an OpenQASM program that creates a Bell state:
+
+```qasm
+OPENQASM 2.0;
+include "qelib1.inc";
+
+qreg q[2];
+creg c[2];
+
+h q[0];
+cx q[0], q[1];
+
+measure q[0] -> c[0];
+measure q[1] -> c[1];
+```
+
+### Expected Output
+
+When compiled and simulated, the above program should produce:
+
+```
+Circuit Statistics:
+- Number of qubits: 2
+- Number of gates: 3
+- Circuit depth: 2
+
+Measurement Results (1000 shots):
+|00⟩: 502 (50.2%)
+|01⟩: 0 (0.0%)
+|10⟩: 0 (0.0%)
+|11⟩: 498 (49.8%)
+```
+
+## Project Architecture
+
+```mermaid
+graph TD
+    A[OpenQASM Source] --> B[Parser]
+    B --> C[Abstract Syntax Tree]
+    C --> D[Intermediate Representation]
+    D --> E[Optimizer]
+    E --> F[Quantum Circuit]
+    F --> G[Simulator]
+    F --> H[Visualizer]
+    
+    subgraph Frontend
+    B
+    C
+    end
+    
+    subgraph Middleend
+    D
+    E
+    end
+    
+    subgraph Backend
+    F
+    G
+    H
+    end
+```
+
+### Components
+
+1. **Frontend**
+   - Parser: Converts OpenQASM text to AST
+   - AST: Represents the program structure
+
+2. **Middleend**
+   - IR: Intermediate representation for optimization
+   - Optimizer: Applies circuit optimizations
+
+3. **Backend**
+   - Quantum Circuit: Final optimized circuit
+   - Simulator: Executes the circuit
+   - Visualizer: Generates circuit diagrams
+
+## Development
+
+### Code Quality
+
+The project uses several tools to ensure code quality:
+
+- **clang-tidy**: Static code analysis
+- **Valgrind**: Memory checking (Linux only)
+- **Code Coverage**: LCOV for coverage reporting
+- **Doxygen**: API documentation generation
+
+### Continuous Integration
+
+The project uses GitHub Actions for continuous integration, which:
+
+- Builds and tests on multiple platforms (Linux, Windows, macOS)
+- Runs static analysis
+- Generates code coverage reports
+- Builds documentation
+- Uploads artifacts
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
